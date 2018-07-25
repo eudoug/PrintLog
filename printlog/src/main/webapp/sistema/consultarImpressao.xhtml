@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:format="http://uteis.fpc.com/LocalDateTimeConverter">
+
+<h:head>
+</h:head>
+
+<ui:composition template="../template/layoutBase.xhtml">
+
+	<ui:define name="content">
+
+		<h:form style="margin:auto;margin-left:2%;"
+			id="form-consultaimpressao">
+
+			<p:dataTable id="dataTable-logs" var="log"
+				value="#{consultarPrintController.prints}" widgetVar="logsTable"
+				emptyMessage="Registro não encontrado com o critério fornecido"
+				rows="15"				
+				paginator="true"
+				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15" style="width:98%;">
+
+				<f:facet name="header">
+					<p:outputPanel>
+						<h:outputText value="Pesquisar por usuário:" />
+						<p:inputText id="globalFilter" onkeyup="PF('logsTable').filter()"
+							style="width:150px" placeholder="Digite a palavra-chave" />
+					</p:outputPanel>
+				</f:facet>
+
+				<p:column filterBy="#{log.user}" headerText="Usuário">
+					<f:facet name="filter">
+						<p:selectOneMenu id="filterUserColumn" value="#{consultarPrintController.selectedUser}">
+							<p:ajax listener="#{consultarPrintController.filterByUser}" process="filterUserColumn" update="dataTable-logs"></p:ajax>
+							<f:selectItem itemLabel="Selecione" itemValue="#{null}"
+								noSelectionOption="true" />
+							<f:selectItems value="#{consultarPrintController.users}" />
+						</p:selectOneMenu>
+					</f:facet>
+					<h:outputText value="#{log.user}" />
+				</p:column>
+
+				<p:column headerText="Cliente">
+							#{log.client}
+				</p:column>
+
+				<p:column headerText="Hora de Impressão">
+					<h:outputText value="#{log.timecreated}">
+							<format:LocalDateTimeConverter pattern="dd/MM/yyyy HH:mm:ss"/>
+					</h:outputText>
+				</p:column>
+
+				<p:column headerText="Quantidade de Páginas">
+							#{log.pagecount}
+						</p:column>
+
+				<p:column headerText="Impressora">
+							#{log.printer}
+						</p:column>
+
+
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+
+</ui:composition>
+</html>
+
+
+
+
