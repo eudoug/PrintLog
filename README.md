@@ -59,9 +59,9 @@ Requisitos para funcionamento:
 	<Arguments>-command C:\printlog\printlog.ps1 '$(EventID)' '$(TimeCreated)' '$(JobID)' '$(FileName)' '$(User)' '$(Client)' '$(Printer)' '$(Address)' '$(JobBytes)' '$(PageCount)'</Arguments>
 	</Exec>
 	</Actions>
+	
 
->
-	Na aba Geral, marcar a opção: “Executar estando o usuário conectado ou não” e também “Executar com privilégios mais altos”;
+Na aba Geral, marcar a opção: “Executar estando o usuário conectado ou não” e também “Executar com privilégios mais altos”;
 	Na aba Condições, desmarcar a opção: “Iniciar a tarefa somente se o computador estiver ligado à rede elétrica”;
 	Na aba Configurações, alterar a opção: “Se a tarefa já estiver sendo executada, a seguinte regra será aplicada” para “Colocar uma nova instância na fila”;
 	Terceira Parte
