@@ -2,17 +2,20 @@ Aplicação Web Para Registro de Impressão
 
 Requisitos para funcionamento:
 	Primeira Parte:
-•	Ativar os logs de impressão e a opção de mostrar o nome do arquivo de impressão no log;
-•	Abrir o Event Viewer e localizar a opção:
-o	Log de Aplicações e Serviços -> Microsoft -> Windows -> PrintService -> Microsoft-Windows-PrintService/Operational;
-o	Clicar em Properties e marcar a opção Ativar Logs;
-o	Definir o tamanho do log de acordo com a sua estrutura. Deixe a opção “Substituir eventos”;
-•	Acessar “gpedit.msc” no servidor onde estão instaladas as impressoras e localizar a opção: 
-o	Configuração do Computador -> Modelos Administrativos -> Impressoras -> “Allow job name in event logs”;
-•	Acessar o gerenciador de impressão, em impressoras, clicar em propriedades e na aba “compartilhamento” desabilitar a opção “Processar trabalhos de impressão em computadores cliente”
-Segunda Parte:
-•	Acessar o Visualizador de Eventos, clicar sobre o EventID307 e clicar na opção “Anexar Tarefa à este Evento” e configurar de forma que o evento acesse powershell.exe sempre que for chamado;
-•	Abra o Notepad++ e a baixo da tag </Subscription> incluir as tags conforme abaixo:
+	Ativar os logs de impressão e a opção de mostrar o nome do arquivo de impressão no log;
+	Abrir o Event Viewer e localizar a opção:
+	Log de Aplicações e Serviços -> Microsoft -> Windows -> PrintService -> Microsoft-Windows-PrintService/Operational;
+	Clicar em Properties e marcar a opção Ativar Logs;
+	Definir o tamanho do log de acordo com a sua estrutura. Deixe a opção “Substituir eventos”;
+	Acessar “gpedit.msc” no servidor onde estão instaladas as impressoras e localizar a opção: 
+	Configuração do Computador -> Modelos Administrativos -> Impressoras -> “Allow job name in event logs”;
+	Acessar o gerenciador de impressão, em impressoras, clicar em propriedades e na aba “compartilhamento” desabilitar a opção “Processar trabalhos de impressão em computadores cliente”
+	
+	Segunda Parte:
+	Acessar o Visualizador de Eventos, clicar sobre o EventID307 e clicar na opção “Anexar Tarefa à este Evento” e configurar de forma que o evento acesse powershell.exe sempre que for chamado;
+	Abra o Notepad++ e a baixo da tag </Subscription> incluir as tags conforme abaixo:
+	
+	
 •	<Triggers>
 •	<EventTrigger>
 •	<Enabled>true</Enabled>
@@ -60,22 +63,23 @@ Segunda Parte:
 •	</Actions>
 
 
-•	Na aba Geral, marcar a opção: “Executar estando o usuário conectado ou não” e também “Executar com privilégios mais altos”;
-•	Na aba Condições, desmarcar a opção: “Iniciar a tarefa somente se o computador estiver ligado à rede elétrica”;
-•	Na aba Configurações, alterar a opção: “Se a tarefa já estiver sendo executada, a seguinte regra será aplicada” para “Colocar uma nova instância na fila”;
-
-Terceira Parte
-	
-•	A partir desse momento os logs estarão sendo capturados e enviados para o MySQL. É importante que as informações de conexão sejam anotadas para que sejam colocadas nas configurações da aplicação.
 
 
+	Na aba Geral, marcar a opção: “Executar estando o usuário conectado ou não” e também “Executar com privilégios mais altos”;
+	Na aba Condições, desmarcar a opção: “Iniciar a tarefa somente se o computador estiver ligado à rede elétrica”;
+	Na aba Configurações, alterar a opção: “Se a tarefa já estiver sendo executada, a seguinte regra será aplicada” para “Colocar uma nova instância na fila”;
 
-Características da Aplicação:
+	Terceira Parte
+	A partir desse momento os logs estarão sendo capturados e enviados para o MySQL. É importante que as informações de conexão sejam anotadas para que sejam colocadas nas configurações da aplicação.
 
-		A aplicação PrintLog foi criada utilizando as seguintes tecnologias:
-•	CDI
-•	Hibernate
-•	JSF
-•	Maven
+
+
+	Características da Aplicação:
+
+	A aplicação PrintLog foi criada utilizando as seguintes tecnologias:
+	CDI
+	Hibernate
+	JSF
+	Maven
 
 Fonte: http://www.huttel.com.br/2016/07/salvar-log-de-impressoes-do-windows-server-2012-em-banco-de-dados-mysql/
