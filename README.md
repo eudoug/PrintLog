@@ -15,51 +15,52 @@ Requisitos para funcionamento:
 	Abra o Notepad++ e a baixo da tag </Subscription> incluir as tags conforme abaixo:
 	
 	
-•	<Triggers>
-•	<EventTrigger>
-•	<Enabled>true</Enabled>
-•	<Subscription><QueryList><Query Id="0" Path="Microsoft-Windows-PrintService/Operational"><Select Path="Microsoft-Windows-PrintService/Operational">*[System[Provider[@Name='Microsoft-Windows-PrintService'] and EventID=307]]</Select></Query></QueryList></Subscription> 
-•	</EventTrigger>
-•	</Triggers>
-•	
-•	...
-•	
-•	<Actions Context="Author">
-•	<Exec>
-•	<Command>powershell.exe</Command>
-•	</Exec>
-•	</Actions>
-•	
-•	
-•	
-•	Arquivo Alterado:
-•	<Triggers>
-•	<EventTrigger>
-•	<Enabled>true</Enabled>
-•	<Subscription><QueryList><Query Id="0" Path="Microsoft-Windows-PrintService/Operational"><Select Path="Microsoft-Windows-PrintService/Operational">*[System[Provider[@Name='Microsoft-Windows-PrintService'] and EventID=307]]</Select></Query></QueryList></Subscription>
-•	<ValueQueries>
-•	<Value name="Address">Event/UserData/DocumentPrinted/Param6</Value>
-•	<Value name="Client">Event/UserData/DocumentPrinted/Param4</Value>
-•	<Value name="EventID">Event/System/EventID</Value>
-•	<Value name="FileName">Event/UserData/DocumentPrinted/Param2</Value>
-•	<Value name="JobBytes">Event/UserData/DocumentPrinted/Param7</Value>
-•	<Value name="JobID">Event/UserData/DocumentPrinted/Param1</Value>
-•	<Value name="PageCount">Event/UserData/DocumentPrinted/Param8</Value>
-•	<Value name="Printer">Event/UserData/DocumentPrinted/Param5</Value>
-•	<Value name="TimeCreated">Event/System/TimeCreated/@SystemTime</Value>
-•	<Value name="User">Event/UserData/DocumentPrinted/Param3</Value>
-•	</ValueQueries>
-•	</EventTrigger>
-•	</Triggers>
-•	
-•	...
-•	
-•	<Actions Context="Author">
-•	<Exec>
-•	<Command>powershell.exe</Command>
-•	<Arguments>-command C:\printlog\printlog.ps1 '$(EventID)' '$(TimeCreated)' '$(JobID)' '$(FileName)' '$(User)' '$(Client)' '$(Printer)' '$(Address)' '$(JobBytes)' '$(PageCount)'</Arguments>
-•	</Exec>
-•	</Actions>
+
+	<Triggers>
+	<EventTrigger>
+	<Enabled>true</Enabled>
+	<Subscription><QueryList><Query Id="0" Path="Microsoft-Windows-PrintService/Operational"><Select Path="Microsoft-Windows-PrintService/Operational">*[System[Provider[@Name='Microsoft-Windows-PrintService'] and EventID=307]]</Select></Query></QueryList></Subscription> 
+	</EventTrigger>
+	</Triggers>
+	
+	...
+	
+	<Actions Context="Author">
+	<Exec>
+	<Command>powershell.exe</Command>
+	</Exec>
+	</Actions>
+	
+	Arquivo Alterado:
+	<Triggers>
+	<EventTrigger>
+	<Enabled>true</Enabled>
+	<Subscription><QueryList><Query Id="0" Path="Microsoft-Windows-PrintService/Operational"><Select Path="Microsoft-Windows-PrintService/Operational">*[System[Provider[@Name='Microsoft-Windows-PrintService'] and EventID=307]]</Select></Query></QueryList></Subscription>
+	<ValueQueries>
+	<Value name="Address">Event/UserData/DocumentPrinted/Param6</Value>
+	<Value name="Client">Event/UserData/DocumentPrinted/Param4</Value>
+	<Value name="EventID">Event/System/EventID</Value>
+	<Value name="FileName">Event/UserData/DocumentPrinted/Param2</Value>
+	<Value name="JobBytes">Event/UserData/DocumentPrinted/Param7</Value>
+	<Value name="JobID">Event/UserData/DocumentPrinted/Param1</Value>
+	<Value name="PageCount">Event/UserData/DocumentPrinted/Param8</Value>
+	<Value name="Printer">Event/UserData/DocumentPrinted/Param5</Value>
+	<Value name="TimeCreated">Event/System/TimeCreated/@SystemTime</Value>
+	<Value name="User">Event/UserData/DocumentPrinted/Param3</Value>
+	</ValueQueries>
+	</EventTrigger>
+	</Triggers>
+	
+	...
+	
+	<Actions Context="Author">
+	<Exec>
+	<Command>powershell.exe</Command>
+	<Arguments>-command C:\printlog\printlog.ps1 '$(EventID)' '$(TimeCreated)' '$(JobID)' '$(FileName)' '$(User)' '$(Client)' '$(Printer)' '$(Address)' '$(JobBytes)' '$(PageCount)'</Arguments>
+	</Exec>
+	</Actions>
+
+>
 	Na aba Geral, marcar a opção: “Executar estando o usuário conectado ou não” e também “Executar com privilégios mais altos”;
 	Na aba Condições, desmarcar a opção: “Iniciar a tarefa somente se o computador estiver ligado à rede elétrica”;
 	Na aba Configurações, alterar a opção: “Se a tarefa já estiver sendo executada, a seguinte regra será aplicada” para “Colocar uma nova instância na fila”;
